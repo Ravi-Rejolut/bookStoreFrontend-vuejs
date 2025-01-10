@@ -5,6 +5,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
+import { useRouter } from 'vue-router';
 
 
 const loginSchema = yup.object({
@@ -13,17 +14,20 @@ const loginSchema = yup.object({
 });
 
 
+
+const router = useRouter();
 const { setLogin } = useAuth();
 
 
 
 async function onSubmit(values) {
-    console.log("dsadsadsa")
     try {
-        console.log(values)
-        // const response = await axios.post(API_ROUTES.LOGIN, body);
-        // setLogin(response.data);
-        // console.log(response.data);
+       const response = await axios.post(API_ROUTES.LOGIN, values);
+        setLogin({},response.data.data.token);
+        
+        router.push('/')
+     
+        console.log(response.data);
     } catch (error) {
         console.log(error);
     }
@@ -73,7 +77,7 @@ async function onSubmit(values) {
 
 
 
-                                        <button type="submit" class='w-full h-[40px] bg-[--color-primary] rounded-md text-white' disabled={isSubmitting}>
+                                        <button type="submit" class='w-full h-[40px] bg-[--color-primary] rounded-md text-white' >
                                             Submit
                                         </button>
 
