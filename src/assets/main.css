@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 
+
+*{
+    box-sizing: border-box;
+}
 :root{
     --color-primary:#ffb703;
     --color-primary-off:#ffb8038a;

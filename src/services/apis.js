@@ -33,6 +33,11 @@ export const SIGNUP=async(body)=>await axios.post(API_ROUTES.SIGNUP,body);
 
 export const GET_ME=async()=>await axios.get(API_ROUTES.ME,getHeader());
 
+export const GET_BOOKS=async()=>await axios.get(API_ROUTES.BOOKS,getHeader());
+export const GET_AUTHORS=async()=>await axios.get(API_ROUTES.GET_ALL_AUTHOR,getHeader());
+export const GET_CATEGORIES=async()=>await axios.get(API_ROUTES.GET_ALL_CATEGORIES,getHeader());
+export const GET_CATEGORY_BY_ID=async(id)=>await axios.get(`${API_ROUTES.GET_CATGORY_BY_ID}/${id}`,getHeader());
+
 
 
 
