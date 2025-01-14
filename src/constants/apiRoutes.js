@@ -1,3 +1,4 @@
+import { ADD_BOOK } from "@/services/apis";
 
 const BASE_URL = "http://localhost:3001/api/v1";
 
@@ -10,5 +11,6 @@ export const API_ROUTES={
     GET_ALL_CATEGORIES:`${BASE_URL}/book/category`,
     GET_CATGORY_BY_ID:`${BASE_URL}/book/category`,
     GET_ALL_AUTHOR:`${BASE_URL}/book/author`,
+    ADD_BOOK:`${BASE_URL}/book`,
 }
 

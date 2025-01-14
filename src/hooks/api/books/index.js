@@ -1,8 +1,9 @@
 import { useAuth } from '@/hooks/auth';
-import { GET_AUTHORS, GET_BOOKS, GET_CATEGORIES } from '@/services/apis';
-import { useQuery, useMutation } from '@tanstack/vue-query'
+import { ADD_BOOK, GET_AUTHORS, GET_BOOKS, GET_CATEGORIES } from '@/services/apis';
+import { useQuery, useMutation,useQueryClient } from '@tanstack/vue-query'
 
-// const CACHE_TIME=10000
+const CACHE_TIME=60000
+
 
 
 export const useBookFetch = () => {
@@ -28,6 +29,7 @@ export const useBookFetch = () => {
 
         queryKey: ['books'],
         queryFn:getBooks,
+        staleTime: CACHE_TIME,
 
 
     }
@@ -99,5 +101,30 @@ export const useCategoriesFetch=()=>{
     )
 
     return {categories,isLoading,isError,refetch}
+
+}
+
+export const useAddBookMutation=()=>{
+    const queryClient=useQueryClient();
+
+   const addBook=async()=>{
+    try {
+        const response =await ADD_BOOK(body);
+        return response.data.data;
+    } catch (error) {
+        console.log(error)
+    }
+   }
+
+
+   const {mutate:bookMutate,isLoading:addBookLoading,isError}=useMutation({
+    
+    mutationFn:addBook,
+    onSuccess:queryClient.invalidateQueries(['books'])
+
+   })
+
+   return {bookMutate,addBookLoading,isError}
+
 
 }
