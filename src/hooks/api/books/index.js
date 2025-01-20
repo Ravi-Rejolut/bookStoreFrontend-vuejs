@@ -63,6 +63,7 @@ export const useAuthorFetch=()=>{
 
         queryKey: ['authors'],
         queryFn:getAuthors,
+        staleTime: CACHE_TIME,
 
 
     }
@@ -95,6 +96,7 @@ export const useCategoriesFetch=()=>{
 
         queryKey: ['categories'],
         queryFn:getCatoregories,
+        staleTime: CACHE_TIME,
 
 
     }
@@ -107,7 +109,7 @@ export const useCategoriesFetch=()=>{
 export const useAddBookMutation=()=>{
     const queryClient=useQueryClient();
 
-   const addBook=async()=>{
+   const addBook=async(body)=>{
     try {
         const response =await ADD_BOOK(body);
         return response.data.data;

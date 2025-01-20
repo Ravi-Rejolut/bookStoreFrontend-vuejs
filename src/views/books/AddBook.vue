@@ -5,8 +5,10 @@ import { useAddBookMutation } from '@/hooks/api/books';
 
 const {bookMutate}=useAddBookMutation();
 
-const addBook=(data)=>{
-    bookMutate(data);
+
+const addBook=(book)=>{
+    console.log(book)
+    bookMutate(book);
 }
 </script>
 

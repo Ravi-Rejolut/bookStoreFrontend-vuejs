@@ -1,6 +1,6 @@
 import { ADD_BOOK } from "@/services/apis";
 
-const BASE_URL = "http://localhost:3001/api/v1";
+const BASE_URL = "https://bookstore.kodethat.com/api/v1";
 
 export const API_ROUTES={
     LOGIN:`${BASE_URL}/auth/login`,

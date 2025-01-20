@@ -4,7 +4,7 @@ import BookItem from '@/components/BookItem.vue';
 
 const {books,isLoading,isError}=useBookFetch();
 
-console.log(books);
+
  
 
 
@@ -15,7 +15,7 @@ console.log(books);
         Books
     </div>
     <ul class="flex flex-col gap-2">
-        <template v-for="book in books" :key="book.id">
+        <template v-for="book in books.books" :key="book.id">
            <BookItem :book="book"/>
         </template>
     </ul>

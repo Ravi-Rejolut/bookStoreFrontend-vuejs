@@ -1,18 +1,18 @@
 <script setup>
 import * as yup from 'yup';
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import { useAuthorFetch,useCategoriesFetch } from '@/hooks/api/books';
+import { useAuthorFetch, useCategoriesFetch } from '@/hooks/api/books';
 import { DropZone } from '@/components/DropZone';
 import { ref } from 'vue';
 
-const emit=defineEmits(['callBack'])
+const emit = defineEmits(['callBack'])
 
 
-const files=ref([]);
+const files = ref([]);
 
 
 const bookFormSchema = yup.object({
-    name: yup.string().required("Email is Required"),
+    name: yup.string().required("Name is Required"),
     authorId: yup.string().required("Author is Required"),
     categoryId: yup.string().required("Category is Required"),
     description: yup.string().required("Description is Required"),
@@ -23,40 +23,44 @@ const bookFormSchema = yup.object({
 });
 
 const handleFileChange = (updatedFiles) => {
-    files.value=updatedFiles
+    files.value = updatedFiles
 
 }
 
 
-const {authors} =useAuthorFetch();
-const {categories } =useCategoriesFetch();
+const { authors } = useAuthorFetch();
+const { categories } = useCategoriesFetch();
 
 
 
-const onSubmit=(values)=>{
+const onSubmit = (values) => {
 
-    if(files.value.length==0){
+    if (files.value.length == 0) {
         alert("Please select at least one image")
         return;
 
     }
-    const formData=new FormData();
-    formData.append('name',values.name);
-    formData.append('categoryId',values.categoryId);
-    formData.append('authorId',values.authorId);
-    formData.append('description',values.description);
-    formData.append('rating',values.rating);
-    formData.append('price',values.price);
-    formData.append('available',values.available);
-    formData.append('quantity',values.quantity);
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('categoryId', values.categoryId);
+    formData.append('authorId', values.authorId);
+    formData.append('description', values.description);
+    formData.append('rating', values.rating);
+    formData.append('price', values.price);
+    formData.append('available', values.available);
+    formData.append('quantity', values.quantity);
 
     for (let i = 0; i < files.value.length; i++) {
         const file = files.value[i];
         formData.append('images', file);
     }
 
-    emit('callBack',formData)
-    
+    try {
+        emit("callBack", formData);
+    } catch (error) {
+        console.error("Error submitting the form:", error);
+    }
+
 }
 
 
